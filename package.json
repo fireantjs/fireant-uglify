@@ -1,6 +1,6 @@
 {
   "name": "fireant-uglify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "UglifyJS plugin for Fireant",
   "main": "index.js",
   "dependencies": {
