@@ -1,7 +1,6 @@
 var uglify = require('uglify-js');
 var chalk = require('chalk');
 var global = require('global');
-var fs = require('fs');
 
 var options = {
     preserveComments: false,
@@ -19,19 +18,19 @@ function FireantUglify(files) {
 
     if (files) {
         if (typeof files === 'string') {
-            source = fs.readFileSync(files).toString();
-        } else {
-            for (var i = 0; i < files.length; i++) {
-                source = source + "\n" + fs.readFileSync(files[i]).toString();
-            }
+            files = [ files ]; // convert to array
         }
     } else {
         source = this.toString();
     }
 
     // Run UglifyJS
-    options.fromString = true;
-    return uglify.minify(source, options).code;
+    if (source) {
+        options.fromString = true;
+        return uglify.minify(source, options).code;
+    } else {
+        return uglify.minify(files, options).code;
+    }
 }
 
 String.prototype.uglify = FireantUglify;
