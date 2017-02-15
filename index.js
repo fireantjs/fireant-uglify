@@ -19,10 +19,10 @@ function FireantUglify(files) {
 
     if (files) {
         if (typeof files === 'string') {
-            source = fs.readFileSync(files);
+            source = fs.readFileSync(files).toString();
         } else {
             for (var i = 0; i < files.length; i++) {
-                source = source + "\n" + fs.readFileSync(files[i]);
+                source = source + "\n" + fs.readFileSync(files[i]).toString();
             }
         }
     } else {
