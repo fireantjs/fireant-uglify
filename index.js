@@ -9,7 +9,9 @@ var options = {
 };
 
 function FireantUglify(files) {
-    if (global.options.uglify) {
+    if (typeof global.options !== 'undefined' &&
+        typeof global.options.uglify !== 'undefined'
+    ) {
         options = global.options.uglify;
     }
 
