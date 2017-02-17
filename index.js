@@ -1,5 +1,6 @@
 var uglify = require('uglify-js');
 var chalk = require('chalk');
+var timestamp = require('./lib/timestamp');
 var global = require('global');
 
 var options = {
@@ -29,10 +30,39 @@ function FireantUglify(files) {
     // Run UglifyJS
     if (source) {
         options.fromString = true;
-        return uglify.minify(source, options).code;
+
+        try {
+            return uglify.minify(source, options).code;
+        } catch(err) {
+            FireantUglifyErrorMessage(err);
+            return '';
+        }
     } else {
-        return uglify.minify(files, options).code;
+        try {
+            return uglify.minify(files, options).code;
+        } catch(err) {
+            FireantUglifyErrorMessage(err);
+            return '';
+        }
     }
+}
+
+function FireantUglifyErrorMessage(err) {
+    console.log(
+        timestamp(),
+        chalk.yellow.bold('-------------- ERROR --------------')
+    );
+    
+    console.log(
+        timestamp(),
+        chalk.red(err.message),
+        chalk.red.bold('Line:'),
+        chalk.red(err.line),
+        chalk.red.bold('Col:'),
+        chalk.red(err.col),
+        chalk.red.bold('Pos:'),
+        chalk.red(err.pos)
+    );
 }
 
 String.prototype.uglify = FireantUglify;
