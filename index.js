@@ -1,6 +1,6 @@
 var uglify = require('uglify-js');
 var chalk = require('chalk');
-var timestamp = require('./lib/timestamp');
+var timestamp = require('fireant-timestamp');
 var global = require('global');
 
 var options = {
@@ -52,7 +52,7 @@ function FireantUglifyErrorMessage(err) {
         timestamp(),
         chalk.yellow.bold('-------------- ERROR --------------')
     );
-    
+
     console.log(
         timestamp(),
         chalk.red(err.message),
